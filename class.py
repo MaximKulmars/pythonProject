@@ -11,11 +11,11 @@ class Student:
         self.grades = {}
 
     def rate_hw(self, lectur, course, grade):
-        if isinstance(lectur, Lecturer) and course in self.courses_attached and course in lectur.courses_in_progress:
-            if course in lectur.grades:
-                lectur.grades[course] += [grade]
+        if isinstance(lectur, Lecturer) and course in self.courses_in_progress and course in lectur.courses_attached:
+            if course in lectur.average_rating:
+                lectur.average_rating[course] += [grade]
             else:
-                lectur.grades[course] = [grade]
+                lectur.average_rating[course] = [grade]
         else:
             return 'Ошибка'
 
@@ -60,6 +60,16 @@ class Lecturer(Mentor):
         self.average_rating = []
 
 
+    def mid_grade_(self):
+        new = []
+        count = 0
+        for i in self.average_rating.values():
+            new.extend(i)
+        for q in new:
+            count += q
+        return round((count / len(new)), 1)
+
+
     def __str__(self):   #вывод информации о классе лекторов
         text = f'Name: {self.name}\nSurname: {self.lastname}\nAverage rating: {self.average_rating}'
         return text
@@ -77,6 +87,8 @@ class Reviewer(Mentor):
     def __str__(self):   #вывод информации об объекте класса проверяющих
         description = f'Имя: {self.name}\nФамилия: {self.lastname}'
         return description
+
+
 
     def rate_hw(self, student, course, grade):
         if isinstance(student, Student) and course in self.courses_attached and course in student.courses_in_progress:
@@ -104,3 +116,4 @@ stud1.mid_grade()
 # print(stud1)
 # print(lectur1)
 stud1.rate_hw(lectur1, 'Python', 9)
+print(lectur1)
