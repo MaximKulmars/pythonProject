@@ -23,18 +23,16 @@ class Student:
 
     def mid_grade(self): #подсчёт средней оценки для студента
         new = []
-        count = 0
         for i in self.grades.values():
-            new.extend(i)
-        for q in new:
-            count += q
-        return round((count / len(new)), 1)
+            new += i
+        mid_grades = round(sum(new) / len(new), 1)
+        return mid_grades
 
 
     def __str__(self):  #вывод данных об объекте класса студент
         text = f'Student:\nName: {self.name}\nSurname: {self.surname}\n\
-Courses finished: {self.courses_finished}\n\
-Courses in progress: {self.courses_in_progress}\nAverage rating: {self.mid_grade()}'  #дописать вывод средней оценки
+Courses finished: {", ".join(self.courses_finished)}\n\
+Courses in progress: {", ".join(self.courses_in_progress)}\nAverage rating: {self.mid_grade()}'  #дописать вывод средней оценки
         return text
 
 
@@ -60,17 +58,16 @@ class Lecturer(Mentor):
     '''
     def __init__(self, name, lastname, courses_attached):   #инициализация класса лекторов с наследованием класса менторов
         super().__init__(name, lastname, courses_attached)
+        self.courses_attached = []
         self.average_rating = {}
 
 
     def mid_grade_(self):
         new = []
-        count = 0
         for i in self.average_rating.values():
-            new.extend(i)
-        for q in new:
-            count += q
-        return round((count / len(new)), 1)
+            new += i
+        mid_grades_ = round(sum(new) / len(new)), 1
+        return
 
 
     def __str__(self):   #вывод информации о классе лекторов
@@ -88,7 +85,7 @@ class Reviewer(Mentor):
 
 
     def __str__(self):   #вывод информации об объекте класса проверяющих
-        description = f'Имя: {self.name}\nФамилия: {self.lastname}'
+        description = f'Name: {self.name}\nSurname: {self.lastname}'
         return description
 
 
@@ -104,21 +101,24 @@ class Reviewer(Mentor):
 
 stud1 = Student('Mark', 'Tven', 'man')
 stud1.courses_finished += ['Введение в программирование', 'GIT']
-stud1.courses_in_progress += ['Python']
+stud1.courses_in_progress += ['Python', 'Jango']
 stud2 = Student('Alen', 'Delon', 'man')
 stud2.courses_in_progress += ['Python', 'GIT']
 stud2.courses_finished += ['Введение в программирование', 'Big Data']
 review1 = Reviewer('Albert', 'Einstein', 'Python')
 lectur1 = Lecturer('Che', 'Gevarra', 'Python')
 review1.courses_attached += ['Python']
-
+lectur1.courses_attached += ['Python']
 review1.rate_hw(stud1, 'Python', 10)
 review1.rate_hw(stud1, 'Python', 9)
 review1.rate_hw(stud1, 'Python', 8)
-stud1.rate_hw(review1, 'Python', 9)
-stud1.mid_grade()
+stud1.rate_hw(lectur1, 'Python', 9)
+stud1.rate_hw(lectur1, 'Python', 10)
+# stud1.mid_grade()
 
 stud1.rate_hw(lectur1, 'Python', 9)
-print(lectur1)
-print(stud1)
-print(stud2)
+# print(stud1.grades)
+# print(stud1)
+# print(review1)
+# print(lectur1)
+lectur1.mid_grade_()
