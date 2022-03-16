@@ -2,6 +2,7 @@ class Student:
     '''
     Класс студентов.
     '''
+
     def __init__(self, name, surname, gender):  #инициализация класса студент.
         self.name = name
         self.surname = surname
@@ -32,7 +33,6 @@ class Student:
         lis_student = []
         if isinstance(self, Student):
             lis_student.append(self)
-            return lis_student
         else:
             return 'invalid class'
 
@@ -81,7 +81,6 @@ class Lecturer(Mentor):
         lis_lectur = []
         if isinstance(self, Lecturer):
             lis_lectur.append(self)
-            return lis_lectur
         else:
             return 'invalid class'
 
@@ -114,33 +113,45 @@ class Reviewer(Mentor):
         else:
             return 'Ошибка'
 
+def perform_comparison(student1, student2):  #функция сравнения успеваемости студентов
+    if isinstance(student1, Student) and isinstance(student2, Student):
+        if student1.mid_grade() > student2.mid_grade():
+            return f'Student performance {student1.name} better. Average score {student1.mid_grade()}'
+        else:
+            return f'Student performance {student2.name} better. Average score {student2.mid_grade()}'
+    else:
+        return 'Error. Invalid class.'
 
-review1 = Reviewer('Albert', 'Einstein', 'Python')
+# первый студент
 stud1 = Student('Mark', 'Tven', 'man')
+# второй студент
 stud2 = Student('Alen', 'Delon', 'man')
+# первый лектор
 lectur1 = Lecturer('Che', 'Gevarra', 'Python')
+# второй лектор
 lectur2 = Lecturer('Poligraf', 'Sharikov', 'Python')
-stud1.courses_finished += ['Введение в программирование', 'GIT']
+# первый ревьювер
+review1 = Reviewer('Albert', 'Einstein', 'Python')
+# второй ревьювер
+review2 = Reviewer('Nikola', 'Tesla', 'Python')
 stud1.courses_in_progress += ['Python', 'Jango']
-stud2.courses_in_progress += ['Python', 'GIT']
-stud2.courses_finished += ['Введение в программирование', 'Big Data']
-review1.rate_hw(stud2, 'Python', 10)
-review1.rate_hw(stud2, 'Python', 9)
-review1.rate_hw(stud1, 'GIT', 9)
-review1.courses_attached += ['Python']
-lectur1.courses_attached += ['Python']
-review1.rate_hw(stud1, 'Python', 10)
-review1.rate_hw(stud1, 'Python', 9)
-review1.rate_hw(stud1, 'Python', 8)
+stud1.courses_finished += ['Введение в программирование', 'GIT']
 stud1.rate_hw(lectur1, 'Python', 9)
 stud1.rate_hw(lectur1, 'Python', 10)
 stud1.rate_hw(lectur1, 'Python', 9)
 stud1.add_in_lis()
+stud2.courses_in_progress += ['Python', 'GIT']
+stud2.courses_finished += ['Введение в программирование', 'Big Data']
 stud2.add_in_lis()
+lectur1.courses_attached += ['Python']
+review1.rate_hw(stud1, 'GIT', 9)
+review1.courses_attached += ['Python']
+review1.rate_hw(stud1, 'Python', 10)
+review1.rate_hw(stud1, 'Python', 9)
+review1.rate_hw(stud1, 'Python', 8)
+review2.courses_attached += ['Python', 'GIT', 'Django']
+review2.rate_hw(stud2, 'Python', 9)
+review2.rate_hw(stud2, 'Python', 1)
+review2.rate_hw(stud2, 'GIT', 1)
 
-
-# print(stud1)
-# print('------------------------------------------------')
-# print(lectur1)
-# print('------------------------------------------------')
-# print(review1)
+print(perform_comparison(stud1, stud2)) #сравнение успеваемости студентов
