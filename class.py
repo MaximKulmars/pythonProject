@@ -66,12 +66,12 @@ class Lecturer(Mentor):
         new = []
         for i in self.average_rating.values():
             new += i
-        mid_grades_ = round(sum(new) / len(new)), 1
-        return
+        mid_grades_ = round(sum(new) / len(new), 1)
+        return mid_grades_
 
 
     def __str__(self):   #вывод информации о классе лекторов
-        text = f'Name: {self.name}\nSurname: {self.lastname}\nAverage rating: {self.average_rating}'
+        text = f'Lectur:\nName: {self.name}\nSurname: {self.lastname}\nAverage rating: {self.mid_grade_()}'
         return text
 
 
@@ -85,7 +85,7 @@ class Reviewer(Mentor):
 
 
     def __str__(self):   #вывод информации об объекте класса проверяющих
-        description = f'Name: {self.name}\nSurname: {self.lastname}'
+        description = f'Reviewer:\nName: {self.name}\nSurname: {self.lastname}'
         return description
 
 
@@ -114,11 +114,12 @@ review1.rate_hw(stud1, 'Python', 9)
 review1.rate_hw(stud1, 'Python', 8)
 stud1.rate_hw(lectur1, 'Python', 9)
 stud1.rate_hw(lectur1, 'Python', 10)
-# stud1.mid_grade()
-
 stud1.rate_hw(lectur1, 'Python', 9)
-# print(stud1.grades)
-# print(stud1)
-# print(review1)
-# print(lectur1)
-lectur1.mid_grade_()
+
+
+print(stud1)
+print('------------------------------------------------')
+print(lectur1)
+print('------------------------------------------------')
+print(review1)
+
