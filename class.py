@@ -28,6 +28,13 @@ class Student:
         mid_grades = round(sum(new) / len(new), 1)
         return mid_grades
 
+    def add_in_lis(self):
+        lis_student = []
+        if isinstance(self, Student):
+            lis_student.append(self)
+        else:
+            print('invalid class')
+
 
     def __str__(self):  #вывод данных об объекте класса студент
         text = f'Student:\nName: {self.name}\nSurname: {self.surname}\n\
@@ -69,6 +76,13 @@ class Lecturer(Mentor):
         mid_grades_ = round(sum(new) / len(new), 1)
         return mid_grades_
 
+    def add_in_lis(self):
+        lis_lectur = []
+        if isinstance(self, Lecturer):
+            lis_lectur.append(self)
+        else:
+            print('invalid class')
+
 
     def __str__(self):   #вывод информации о классе лекторов
         text = f'Lectur:\nName: {self.name}\nSurname: {self.lastname}\nAverage rating: {self.mid_grade_()}'
@@ -91,12 +105,13 @@ class Reviewer(Mentor):
 
     def rate_hw(self, student, course, grade):
         if isinstance(student, Student) and course in self.courses_attached and course in student.courses_in_progress:
-            if course in student.grades:
+            if course in student.grades and 0 <= grade <= 10:
                 student.grades[course] += [grade]
             else:
                 student.grades[course] = [grade]
         else:
             return 'Ошибка'
+
 
 
 stud1 = Student('Mark', 'Tven', 'man')
@@ -105,6 +120,8 @@ stud1.courses_in_progress += ['Python', 'Jango']
 stud2 = Student('Alen', 'Delon', 'man')
 stud2.courses_in_progress += ['Python', 'GIT']
 stud2.courses_finished += ['Введение в программирование', 'Big Data']
+review1.rate_hw(stud2, 'Python', 10)
+review1.rate_hw(stud1, 'GIT', 9)
 review1 = Reviewer('Albert', 'Einstein', 'Python')
 lectur1 = Lecturer('Che', 'Gevarra', 'Python')
 review1.courses_attached += ['Python']
@@ -122,4 +139,3 @@ print('------------------------------------------------')
 print(lectur1)
 print('------------------------------------------------')
 print(review1)
-
