@@ -14,10 +14,10 @@ class Student:
 
     def rate_hw(self, lectur, course, grade):
         if isinstance(lectur, Lecturer) and course in self.courses_in_progress and course in lectur.courses_attached:
-            if course in lectur.average_rating:
-                lectur.average_rating[course] += [grade]
+            if course in lectur.courses_attached:
+                lectur.mid_grade[course] += [grade]
             else:
-                lectur.average_rating[course] = [grade]
+                lectur.mid_grade[course] = [grade]
         else:
             return 'Ошибка'
 
@@ -67,15 +67,15 @@ class Lecturer(Mentor):
     def __init__(self, name, lastname, courses_attached):   #инициализация класса лекторов с наследованием класса менторов
         super().__init__(name, lastname, courses_attached)
         self.courses_attached = []
-        self.average_rating = {}
+        self.mid_grade = {}
 
 
-    def mid_grade_(self):
+    def mid_grade(self):
         new = []
-        for i in self.average_rating.values():
+        for i in self.mid_grade.values():
             new += i
-        mid_grades_ = round(sum(new) / len(new), 1)
-        return mid_grades_
+        mid_grades = round(sum(new) / len(new), 1)
+        return mid_grades
 
     def add_in_lis(self):
         lis_lectur = []
@@ -86,7 +86,7 @@ class Lecturer(Mentor):
 
 
     def __str__(self):   #вывод информации о классе лекторов
-        text = f'Lectur:\nName: {self.name}\nSurname: {self.lastname}\nAverage rating: {self.mid_grade_()}'
+        text = f'Lectur:\nName: {self.name}\nSurname: {self.lastname}\nAverage rating: {self.mid_grade()}'
         return text
 
 
@@ -113,12 +113,12 @@ class Reviewer(Mentor):
         else:
             return 'Ошибка'
 
-def perform_comparison(student1, student2):  #функция сравнения успеваемости студентов
-    if isinstance(student1, Student) and isinstance(student2, Student):
-        if student1.mid_grade() > student2.mid_grade():
-            return f'Student performance {student1.name} better. Average score {student1.mid_grade()}'
+def perform_comparison(person1, person2):  #функция оценок студентов или лекторов
+    if isinstance(person1, Student) and isinstance(person2, Student):
+        if person1.mid_grade() > person2.mid_grade():
+            return f'Student performance {person1.name} better. Average score {person1.mid_grade()}'
         else:
-            return f'Student performance {student2.name} better. Average score {student2.mid_grade()}'
+            return f'Student performance {person2.name} better. Average score {person2.mid_grade()}'
     else:
         return 'Error. Invalid class.'
 
@@ -142,8 +142,10 @@ stud1.rate_hw(lectur1, 'Python', 9)
 stud1.add_in_lis()
 stud2.courses_in_progress += ['Python', 'GIT']
 stud2.courses_finished += ['Введение в программирование', 'Big Data']
+stud2.rate_hw(lectur2, 'Python', 8)
 stud2.add_in_lis()
 lectur1.courses_attached += ['Python']
+lectur2.courses_attached += ['Python', 'GIT', 'Django']
 review1.rate_hw(stud1, 'GIT', 9)
 review1.courses_attached += ['Python']
 review1.rate_hw(stud1, 'Python', 10)
@@ -154,4 +156,6 @@ review2.rate_hw(stud2, 'Python', 9)
 review2.rate_hw(stud2, 'Python', 1)
 review2.rate_hw(stud2, 'GIT', 1)
 
-print(perform_comparison(stud1, stud2)) #сравнение успеваемости студентов
+# print(perform_comparison(stud1, stud2)) #сравнение успеваемости студентов
+# print(perform_comparison(lectur1, lectur2))
+print(stud1.courses_in_progress)
