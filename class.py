@@ -32,6 +32,7 @@ class Student:
         lis_student = []
         if isinstance(self, Student):
             lis_student.append(self)
+            return lis_student
         else:
             return 'invalid class'
 
@@ -80,6 +81,7 @@ class Lecturer(Mentor):
         lis_lectur = []
         if isinstance(self, Lecturer):
             lis_lectur.append(self)
+            return lis_lectur
         else:
             return 'invalid class'
 
@@ -135,11 +137,10 @@ stud1.rate_hw(lectur1, 'Python', 10)
 stud1.rate_hw(lectur1, 'Python', 9)
 stud1.add_in_lis()
 stud2.add_in_lis()
-stud1.mid_grade() > stud2.mid_grade()
 
 
-print(stud1)
-print('------------------------------------------------')
-print(lectur1)
-print('------------------------------------------------')
-print(review1)
+# print(stud1)
+# print('------------------------------------------------')
+# print(lectur1)
+# print('------------------------------------------------')
+# print(review1)
