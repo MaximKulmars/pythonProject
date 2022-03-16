@@ -33,7 +33,7 @@ class Student:
         if isinstance(self, Student):
             lis_student.append(self)
         else:
-            print('invalid class')
+            return 'invalid class'
 
 
     def __str__(self):  #вывод данных об объекте класса студент
@@ -81,7 +81,7 @@ class Lecturer(Mentor):
         if isinstance(self, Lecturer):
             lis_lectur.append(self)
         else:
-            print('invalid class')
+            return 'invalid class'
 
 
     def __str__(self):   #вывод информации о классе лекторов
@@ -113,17 +113,18 @@ class Reviewer(Mentor):
             return 'Ошибка'
 
 
-
+review1 = Reviewer('Albert', 'Einstein', 'Python')
 stud1 = Student('Mark', 'Tven', 'man')
+stud2 = Student('Alen', 'Delon', 'man')
+lectur1 = Lecturer('Che', 'Gevarra', 'Python')
+lectur2 = Lecturer('Poligraf', 'Sharikov', 'Python')
 stud1.courses_finished += ['Введение в программирование', 'GIT']
 stud1.courses_in_progress += ['Python', 'Jango']
-stud2 = Student('Alen', 'Delon', 'man')
 stud2.courses_in_progress += ['Python', 'GIT']
 stud2.courses_finished += ['Введение в программирование', 'Big Data']
 review1.rate_hw(stud2, 'Python', 10)
+review1.rate_hw(stud2, 'Python', 9)
 review1.rate_hw(stud1, 'GIT', 9)
-review1 = Reviewer('Albert', 'Einstein', 'Python')
-lectur1 = Lecturer('Che', 'Gevarra', 'Python')
 review1.courses_attached += ['Python']
 lectur1.courses_attached += ['Python']
 review1.rate_hw(stud1, 'Python', 10)
@@ -132,6 +133,9 @@ review1.rate_hw(stud1, 'Python', 8)
 stud1.rate_hw(lectur1, 'Python', 9)
 stud1.rate_hw(lectur1, 'Python', 10)
 stud1.rate_hw(lectur1, 'Python', 9)
+stud1.add_in_lis()
+stud2.add_in_lis()
+stud1.mid_grade() > stud2.mid_grade()
 
 
 print(stud1)
