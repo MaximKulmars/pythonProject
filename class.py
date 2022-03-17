@@ -15,9 +15,9 @@ class Student:
     def rate_hw(self, lectur, course, grade):
         if isinstance(lectur, Lecturer) and course in self.courses_in_progress and course in lectur.courses_attached:
             if course in lectur.courses_attached:
-                lectur.mid_grade[course] += [grade]
+                lectur.mid_grade_[course] += [grade]
             else:
-                lectur.mid_grade[course] = [grade]
+                lectur.mid_grade_[course] = [grade]
         else:
             return 'Ошибка'
 
@@ -67,12 +67,12 @@ class Lecturer(Mentor):
     def __init__(self, name, lastname, courses_attached):   #инициализация класса лекторов с наследованием класса менторов
         super().__init__(name, lastname, courses_attached)
         self.courses_attached = []
-        self.mid_grade = {}
+        self.mid_grade_ = {}
 
 
     def mid_grade(self):
         new = []
-        for i in self.mid_grade.values():
+        for i in self.mid_grade_.values():
             new += i
         mid_grades = round(sum(new) / len(new), 1)
         return mid_grades
@@ -113,7 +113,7 @@ class Reviewer(Mentor):
         else:
             return 'Ошибка'
 
-def perform_comparison(person1, person2):  #функция оценок студентов или лекторов
+def perform_comparison(person1, person2):  #функция оценок студентов
     if isinstance(person1, Student) and isinstance(person2, Student):
         if person1.mid_grade() > person2.mid_grade():
             return f'Student performance {person1.name} better. Average score {person1.mid_grade()}'
@@ -144,7 +144,7 @@ stud2.courses_in_progress += ['Python', 'GIT']
 stud2.courses_finished += ['Введение в программирование', 'Big Data']
 stud2.rate_hw(lectur2, 'Python', 8)
 stud2.add_in_lis()
-lectur1.courses_attached += ['Python']
+lectur1.courses_attached += ['Python', 'GIT']
 lectur2.courses_attached += ['Python', 'GIT', 'Django']
 review1.rate_hw(stud1, 'GIT', 9)
 review1.courses_attached += ['Python']
@@ -156,6 +156,6 @@ review2.rate_hw(stud2, 'Python', 9)
 review2.rate_hw(stud2, 'Python', 1)
 review2.rate_hw(stud2, 'GIT', 1)
 
-# print(perform_comparison(stud1, stud2)) #сравнение успеваемости студентов
+print(perform_comparison(stud1, stud2)) #сравнение успеваемости студентов
 # print(perform_comparison(lectur1, lectur2))
-print(stud1.courses_in_progress)
+print(type(lectur1.mid_grade_))
