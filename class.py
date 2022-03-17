@@ -15,8 +15,10 @@ class Student:
     def rate_hw(self, lectur, course, grade):
         if isinstance(lectur, Lecturer) and course in self.courses_in_progress and course in lectur.courses_attached:
             if course in lectur.courses_attached:
+                lectur.mid_grade_.setdefault(course, [grade])
                 lectur.mid_grade_[course] += [grade]
             else:
+                lectur.mid_grade_.setdefault([course], [grade])
                 lectur.mid_grade_[course] = [grade]
         else:
             return 'Ошибка'
@@ -142,7 +144,7 @@ stud1.rate_hw(lectur1, 'Python', 9)
 stud1.add_in_lis()
 stud2.courses_in_progress += ['Python', 'GIT']
 stud2.courses_finished += ['Введение в программирование', 'Big Data']
-stud2.rate_hw(lectur2, 'Python', 8)
+stud1.rate_hw(lectur2, 'Python', 8)
 stud2.add_in_lis()
 lectur1.courses_attached += ['Python', 'GIT']
 lectur2.courses_attached += ['Python', 'GIT', 'Django']
@@ -156,6 +158,8 @@ review2.rate_hw(stud2, 'Python', 9)
 review2.rate_hw(stud2, 'Python', 1)
 review2.rate_hw(stud2, 'GIT', 1)
 
-print(perform_comparison(stud1, stud2)) #сравнение успеваемости студентов
+# print(perform_comparison(stud1, stud2)) #сравнение успеваемости студентов
 # print(perform_comparison(lectur1, lectur2))
-print(type(lectur1.mid_grade_))
+stud1.rate_hw(lectur1, 'Python', 10)
+stud1.rate_hw(lectur2, 'Python', 10)
+print(lectur1.mid_grade() > lectur2.mid_grade())
