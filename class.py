@@ -27,30 +27,35 @@ class Student:
 
     def mid_grade(self): #подсчёт средней оценки для студента
         new = []
-        for i in self.grades.values():
-            new += i
-        mid_grades = round(sum(new) / len(new), 1)
-        return mid_grades
+        if len(self.grades.values()) < 1:
+            return f'{self.name} {self.surname} has no ratings.'
+        else:
+            for i in self.grades.values():
+                new += i
+            mid_grades = round(sum(new) / len(new), 1)
+            return mid_grades
 
     def course_aver(add_in_lis, course):
         pass
 
-    def __lt__(self, other):
+
+    def __lt__(self, other):    #сравнение по средней оценке студентов
         if not isinstance(other, Student):
             print(f'{other.name} {other.surname} is not a student')
             return
         else:
-            return self.mid_grade() < other.mid_grade()
+            if len(other.grades.values()) < 1:
+                return f'Student {other.name} {other.surname} has no ratings.'
+            else:
+                return self.mid_grade() < other.mid_grade()
 
 
-
-    # def add_in_lis(self):
-    #     lis_student = []
-    #     if isinstance(self, Student):
-    #         lis_student.append(self)
-    #         return lis_student
-    #     else:
-    #         return 'invalid class'
+    def add_in_lis(self):
+        lis_student = []
+        if isinstance(self, Student):
+            lis_student.append(self)
+        else:
+            return 'invalid class'
 
 
     def __str__(self):  #вывод данных об объекте класса студент
@@ -88,10 +93,13 @@ class Lecturer(Mentor):
 
     def mid_grade(self):
         new = []
-        for i in self.mid_grade_.values():
-            new += i
-        mid_grades = round(sum(new) / len(new), 1)
-        return mid_grades
+        if len(self.mid_grade_.values()) < 1:
+            return f'{self.name} {self.lastname} has no ratings.'
+        else:
+            for i in self.mid_grade_.values():
+                new += i
+            mid_grades = round(sum(new) / len(new), 1)
+            return mid_grades
 
     def add_in_lis(self):
         lis_lectur = []
@@ -99,6 +107,17 @@ class Lecturer(Mentor):
             lis_lectur.append(self)
         else:
             return 'invalid class'
+
+    def __lt__(self, other):   #сравнение по средней оценке лекторов
+        if not isinstance(other, Lecturer):
+            print(f'{other.name} {other.surname} is not a lectur')
+            return
+        else:
+            if len(other.mid_grade_.values()) < 1:
+                return f'{other.name} {other.lastname} has no ratings.'
+            else:
+                return self.mid_grade() < other.mid_grade()
+
 
 
     def __str__(self):   #вывод информации о классе лекторов
@@ -110,7 +129,7 @@ class Reviewer(Mentor):
     '''
      Инициализация класса проверяющих с наследованием от класса менторов.
     '''
-    def __init__(self, name, lastname, courses_attached, work_evaluation=True):  #инициализация класса проверяющих с наследованием от класса менторов
+    def __init__(self, name, lastname, courses_attached):  #инициализация класса проверяющих с наследованием от класса менторов
         super().__init__(name, lastname, courses_attached)
         self.courses_attached = []
 
@@ -138,44 +157,45 @@ def perform_comparison(person1, person2):  #функция оценок студ
     else:
         return 'Error. Invalid class.'
 
+#student1
+Sharikov = Student('Polikarp', 'Sharikov', 'man')
+Sharikov.courses_in_progress += ['Python']
+Sharikov.courses_finished += ['GIT']
+print(Sharikov)
+Sharikov.mid_grade()
 
+# student2
+Zharovkin = Student('Vasily', 'Zharovkin', 'man')
+Zharovkin.courses_in_progress += ['Python', 'Big Data']
+Zharovkin.courses_finished += ['GIT']
+print(Zharovkin)
 
-# первый студент
-stud1 = Student('Mark', 'Tven', 'man')
-# второй студент
-stud2 = Student('Alen', 'Delon', 'man')
-# первый лектор
-lectur1 = Lecturer('Che', 'Gevarra', 'Python')
-# второй лектор
-lectur2 = Lecturer('Poligraf', 'Sharikov', 'Python')
-# первый ревьювер
-review1 = Reviewer('Albert', 'Einstein', 'Python')
-# второй ревьювер
-review2 = Reviewer('Nikola', 'Tesla', 'Python')
-stud1.courses_in_progress += ['Python', 'Jango']
-stud1.courses_finished += ['Введение в программирование', 'GIT']
-stud1.rate_hw(lectur1, 'Python', 9)
-stud1.rate_hw(lectur1, 'Python', 10)
-stud1.rate_hw(lectur1, 'Python', 9)
-stud2.courses_in_progress += ['Python', 'GIT']
-stud2.courses_finished += ['Введение в программирование', 'Big Data']
-stud1.rate_hw(lectur2, 'Python', 8)
-lectur1.courses_attached += ['Python', 'GIT']
-lectur2.courses_attached += ['Python', 'GIT', 'Django']
-review1.rate_hw(stud1, 'GIT', 9)
-review1.courses_attached += ['Python']
-review1.rate_hw(stud1, 'Python', 10)
-review1.rate_hw(stud1, 'Python', 9)
-review1.rate_hw(stud1, 'Python', 8)
-review2.courses_attached += ['Python', 'GIT', 'Django']
-review2.rate_hw(stud2, 'Python', 9)
-review2.rate_hw(stud2, 'Python', 1)
-review2.rate_hw(stud2, 'GIT', 1)
+#lector1
+Philipp = Lecturer('Philipp', 'Phillipovich', 'Python')
+Philipp.courses_attached += ['GIT']
+Sharikov.rate_hw(Philipp, 'Python', 9)
+Zharovkin.rate_hw(Philipp, 'Python', 9)
+print(Philipp)
 
-# print(perform_comparison(stud1, stud2)) #сравнение успеваемости студентов
-# print(perform_comparison(lectur1, lectur2))
-stud1.rate_hw(lectur1, 'Python', 10)
-stud1.rate_hw(lectur2, 'Python', 10)
-print(stud2 < stud1)
+#lector2
+Bormental = Lecturer('Doctor', 'Bormental', 'Python')
+Bormental.courses_attached += ['GIT']
+Sharikov.rate_hw(Bormental, 'Python', 9)
+Zharovkin.rate_hw(Bormental, 'Python', 10)
+print(Bormental)
 
+#reviewer1
+Shvonder = Reviewer('Tovarich', 'Shvonder', 'Python')
+Shvonder.courses_attached += ['GIT']
+Shvonder.rate_hw(Sharikov, 'Python', 10)
+Shvonder.rate_hw(Zharovkin, 'Python', 9)
+print(Shvonder)
 
+#reviewer2
+Vjazemskaja = Reviewer('Grazhdanka', 'Vjazemskaja', 'Python')
+Vjazemskaja.courses_attached += ['GIT']
+Vjazemskaja.rate_hw(Sharikov, 'Python', 10)
+Vjazemskaja.rate_hw(Zharovkin, 'Python', 9)
+print(Vjazemskaja)
+
+print(Sharikov < Zharovkin)
