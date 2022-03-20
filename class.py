@@ -12,6 +12,7 @@ class Student:
         self.grades = {}
 
 
+
     def rate_hw(self, lectur, course, grade):
         if isinstance(lectur, Lecturer) and course in self.courses_in_progress and course in lectur.courses_attached:
             if course in lectur.courses_attached:
@@ -31,12 +32,17 @@ class Student:
         mid_grades = round(sum(new) / len(new), 1)
         return mid_grades
 
-    def add_in_lis(self):
-        lis_student = []
-        if isinstance(self, Student):
-            lis_student.append(self)
-        else:
-            return 'invalid class'
+    def course_aver(add_in_lis, course):
+        pass
+
+
+    # def add_in_lis(self):
+    #     lis_student = []
+    #     if isinstance(self, Student):
+    #         lis_student.append(self)
+    #         return lis_student
+    #     else:
+    #         return 'invalid class'
 
 
     def __str__(self):  #вывод данных об объекте класса студент
@@ -124,6 +130,24 @@ def perform_comparison(person1, person2):  #функция оценок студ
     else:
         return 'Error. Invalid class.'
 
+class StudLect(Student, Lecturer):
+
+    def __init__(self):
+        super().__init__(stud_list, lect_list)
+        stud_list = []
+        lect_list = []
+
+
+    def add_in_list(self):
+        if isinstance(self, Student):
+            stud_list.append(self)
+        elif isinstance(self, Lecturer):
+            lect_list.append(self)
+        else:
+            return 'incorrect data'
+
+
+
 # первый студент
 stud1 = Student('Mark', 'Tven', 'man')
 # второй студент
@@ -141,11 +165,9 @@ stud1.courses_finished += ['Введение в программирование
 stud1.rate_hw(lectur1, 'Python', 9)
 stud1.rate_hw(lectur1, 'Python', 10)
 stud1.rate_hw(lectur1, 'Python', 9)
-stud1.add_in_lis()
 stud2.courses_in_progress += ['Python', 'GIT']
 stud2.courses_finished += ['Введение в программирование', 'Big Data']
 stud1.rate_hw(lectur2, 'Python', 8)
-stud2.add_in_lis()
 lectur1.courses_attached += ['Python', 'GIT']
 lectur2.courses_attached += ['Python', 'GIT', 'Django']
 review1.rate_hw(stud1, 'GIT', 9)
@@ -162,4 +184,6 @@ review2.rate_hw(stud2, 'GIT', 1)
 # print(perform_comparison(lectur1, lectur2))
 stud1.rate_hw(lectur1, 'Python', 10)
 stud1.rate_hw(lectur2, 'Python', 10)
-print(lectur1.mid_grade() > lectur2.mid_grade())
+stud1.add_in_list()
+
+
