@@ -162,7 +162,6 @@ Sharikov = Student('Polikarp', 'Sharikov', 'man')
 Sharikov.courses_in_progress += ['Python']
 Sharikov.courses_finished += ['GIT']
 print(Sharikov)
-Sharikov.mid_grade()
 
 # student2
 Zharovkin = Student('Vasily', 'Zharovkin', 'man')
@@ -198,4 +197,17 @@ Vjazemskaja.rate_hw(Sharikov, 'Python', 10)
 Vjazemskaja.rate_hw(Zharovkin, 'Python', 9)
 print(Vjazemskaja)
 
+#methods students
+Sharikov.rate_hw(Philipp, 'Python', 9)
+Sharikov.rate_hw(Bormental, 'Python', 10)
+Zharovkin.rate_hw(Philipp, 'Python', 10)
+Zharovkin.rate_hw(Bormental, 'Python', 10)
+# ----------------------------------------
+#methods reviewer
+Shvonder.rate_hw(Sharikov, 'Python', 10)
+Shvonder.rate_hw(Zharovkin, 'Python', 8)
+Vjazemskaja.rate_hw(Sharikov, 'Python', 10)
+Vjazemskaja.rate_hw(Zharovkin, 'Python', 10)
+# ----------------------------------------
 print(Sharikov < Zharovkin)
+print(Philipp < Bormental)
