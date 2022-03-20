@@ -35,6 +35,14 @@ class Student:
     def course_aver(add_in_lis, course):
         pass
 
+    def __lt__(self, other):
+        if not isinstance(other, Student):
+            print(f'{other.name} {other.surname} is not a student')
+            return
+        else:
+            return self.mid_grade() < other.mid_grade()
+
+
 
     # def add_in_lis(self):
     #     lis_student = []
@@ -130,22 +138,6 @@ def perform_comparison(person1, person2):  #функция оценок студ
     else:
         return 'Error. Invalid class.'
 
-class StudLect(Student, Lecturer):
-
-    def __init__(self):
-        super().__init__(stud_list, lect_list)
-        stud_list = []
-        lect_list = []
-
-
-    def add_in_list(self):
-        if isinstance(self, Student):
-            stud_list.append(self)
-        elif isinstance(self, Lecturer):
-            lect_list.append(self)
-        else:
-            return 'incorrect data'
-
 
 
 # первый студент
@@ -184,6 +176,6 @@ review2.rate_hw(stud2, 'GIT', 1)
 # print(perform_comparison(lectur1, lectur2))
 stud1.rate_hw(lectur1, 'Python', 10)
 stud1.rate_hw(lectur2, 'Python', 10)
-stud1.add_in_list()
+print(stud2 < stud1)
 
 
